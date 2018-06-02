@@ -1,0 +1,11 @@
+Calculator/
+impl1/
+.recovery
+*.ldf
+*.lpf
+*.sty
+*.ini
+*.html
+*.xml
+*.dir
+*.ccl
