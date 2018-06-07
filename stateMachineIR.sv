@@ -1,22 +1,20 @@
 module statemachine(
-                input logic clk,
+                                input logic clk,
 				input logic reset,
 				input logic DONE,
 				input logic read,
-                input logic ERROR,				
+                                input logic ERROR,				
 				output logic FINISH
  );
        
  
- typedef enum{
-   IDLE = 2'b00,
-   READ = 2'b01,
-   END = 2'b10,
-   NA = 2'b11;
- } 
-sm_ps ; 
-sm_ns ;
- 
+ enum{
+   IDLE = 32'b00,
+   READ = 32'b01,
+   END = 32'b10,
+   NA = 32'b11
+ } sm_ps, sm_ns;
+
  always_ff @ (posedge clk, negedge reset)
       begin
 		 if(~reset)
@@ -55,3 +53,46 @@ always_comb
 			 endcase	     
 	      end
  endmodule
+
+/*
+logic [1:0] currentstate;
+
+always_ff @ (posedge clk, negedge reset)
+      begin
+		 if(~reset)
+            currentstate <= 2'b00;
+         else
+            currentstate <= currentstate+1;
+	  end
+
+always_comb
+         begin	
+			 
+		 case(currentstate)
+	
+			 2'b00:  
+			     if(read == 1)
+					 currentstate = 2'b01;
+			     else
+					 currentstate = 2'b00;
+					 
+			 2'b01:      
+                             if(DONE == 1)
+                                 currentstate = 2'b10;
+	                     else if(ERROR == 1)
+	 	                currentstate = 2'b00;
+                             else					 
+			         currentstate = 2'b01; 
+		         2'b10:
+			     currentstate = 2'b00;
+			 
+			 2'b11:
+			     currentstate = 2'b00;
+				
+			 default:
+                             currentstate = 2'b00;			 
+
+			 endcase	     
+	      end
+ endmodule
+*/
