@@ -3,7 +3,6 @@ module irDecoder(input  logic [32:0] code,
 always_comb
 begin
 	case(code)
-	begin
 		32'b1010_1000_0101_0111_1101_0000_0010_1111: button = 0;
 		
 		
