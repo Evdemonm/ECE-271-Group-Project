@@ -13,7 +13,7 @@ module TOPTESTIR(
      logic done;
      logic FINISH;
      logic dataSM;	 
-     logic [32:0] dataTR;
+     logic [31:0] dataTR;
 	 logic IDR;
 	 logic [31:0] dataout;
 
@@ -24,7 +24,7 @@ module TOPTESTIR(
 				.DONE(done),
 				.read(read),
                 .ERROR(error),				
-				.FINISH(FINISH)
+				.FINISH(FINISH),
 				.Idlereset(IDR)); 
 		
 		

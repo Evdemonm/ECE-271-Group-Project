@@ -9,7 +9,7 @@ module statemachine(
  );
        
  
- enum{
+ enum logic [1:0]{
    IDLE = 2'b00,
    READ = 2'b01,
    END = 2'b10,
@@ -52,7 +52,7 @@ always_comb
 
 			 endcase	     
 	      end
-		  assign FINISH = (sm_ps == END);
+		  assign FINISH = (1);
 		  assign Idlereset = (sm_ps == IDLE);
  endmodule
 

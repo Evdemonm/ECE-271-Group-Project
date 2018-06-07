@@ -12,7 +12,7 @@ module DataOutIR(
         if(~reset)
            		dataout <= 0;
         else if(FINISH == 1)
-                dataout <= datain;
+                dataout<= datain;
         else
                 dataout <= dataout;			
 		end	
