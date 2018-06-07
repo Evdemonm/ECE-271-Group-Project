@@ -20,7 +20,7 @@ module TOPTESTIR(
 				.DONE(done),
 				.read(read),
                 .ERROR(error),				
-				.FINISH(finish)); 
+				.FINISH(finish)) 
 		
 		
 
