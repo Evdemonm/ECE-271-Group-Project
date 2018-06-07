@@ -1,5 +1,6 @@
 module bitCounter ( input logic reset,
                 input logic IR,
+				input logic Idlereset,
 				
 				output logic DONE);
                 
@@ -8,10 +9,8 @@ module bitCounter ( input logic reset,
       always_ff @ (posedge IR, negedge reset) 
 		 begin
           if(~reset)
-		     begin 
 	     	    Count <= 0;
-		     end
-		  else if(Count == 32)
+		  else if(Count == 32 || Idlereset == 1)
 			   Count <= 0;
 		  
 		  else

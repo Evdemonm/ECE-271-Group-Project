@@ -4,15 +4,16 @@ module statemachine(
 				input logic DONE,
 				input logic read,
                                 input logic ERROR,				
-				output logic FINISH
+				output logic FINISH,
+				output logic Idlereset
  );
        
  
  enum{
-   IDLE = 32'b00,
-   READ = 32'b01,
-   END = 32'b10,
-   NA = 32'b11
+   IDLE = 2'b00,
+   READ = 2'b01,
+   END = 2'b10,
+   NA = 2'b11
  } sm_ps, sm_ns;
 
  always_ff @ (posedge clk, negedge reset)
@@ -45,13 +46,14 @@ always_comb
 			     sm_ns = IDLE;
 			 
 			 NA:
-			    sm_ns = IDLE;
-				
+                  sm_ns = IDLE;				   
 			 default:
                 sm_ns = IDLE;			 
 
 			 endcase	     
 	      end
+		  assign FINISH = (sm_ps == END);
+		  assign Idlereset = (sm_ps == IDLE);
  endmodule
 
 /*
