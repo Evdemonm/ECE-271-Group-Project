@@ -19,7 +19,7 @@ module bitCounter ( input logic reset,
 			 
 		end
 		
-		assign DONE =(Count == 32); // send to sm
+		assign DONE =(count == 32); // send to sm
 			
 	endmodule
 
