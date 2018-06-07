@@ -11,7 +11,7 @@ module SMCounter ( input logic clk,
 		 begin
           if(~IR) 
 	     	   Count <= 0;
-		  else if( Count == 2147483647)
+		  else if( Count == 21474836470)
 			  Count <= 0;
 		  else
 			  Count <= Count + 1;
