@@ -9,10 +9,10 @@ module statemachine(
        
  
  enum{
-   IDLE = 2'b00,
-   READ = 2'b01,
-   END = 2'b10,
-   NA = 2'b11
+   IDLE = 32'b00,
+   READ = 32'b01,
+   END = 32'b10,
+   NA = 32'b11
  } sm_ps, sm_ns;
 /*
 logic [1:0] currentstate;
