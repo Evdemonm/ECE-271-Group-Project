@@ -24,7 +24,6 @@ always @ ( posedge clk or negedge reset)
 	  if (!reset) 
 		begin
 			parallel_data_out <= 11'b0;
-			//reset_out = 1;
 		end
 	  else  
 		 parallel_data_out[10:0] <= {parallel_data_out[9:0],serial_data_in};

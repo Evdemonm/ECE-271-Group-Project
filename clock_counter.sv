@@ -18,7 +18,7 @@ module clock_counter(
 						count <= 0;
 					end
 				else
-					if(count >= 2000) //Flips the slow clock every 10000 clock cycles
+					if(count >= 11) //Flips the slow clock every 10000 clock cycles
 						begin		
 							clk_o <= ~clk_o;	//Flip slow clock
 							count <= 0;			//Reset the counter

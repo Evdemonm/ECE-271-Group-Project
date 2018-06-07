@@ -6,8 +6,8 @@ module PS2Decoder(input  logic [10:0] code,
 				  output logic [3:0] value);
 	always_comb
 	begin
-		//if(en)
-		//begin//add counter!!!!
+		if(en)
+		begin//add counter!!!!
 		case(code)
 			11'b10_0001_1100_0: value = 0;//a
 			11'b10_0010_0011_0: value = 1;//d
@@ -30,7 +30,7 @@ module PS2Decoder(input  logic [10:0] code,
 			//11'b0_1011_1000_11: value = 8;//w
 			default: value = 9;
 		endcase
-		//end
+		end
 	end
 //	always_comb
 	//	begin

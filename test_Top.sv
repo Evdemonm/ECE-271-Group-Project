@@ -1,41 +1,27 @@
-module test_Top(input  logic PS2Keyboard,
-				input  logic reset_n,
-				input  logic test_clk,
+module test_Top(input  logic PS2_data,
+				input  logic PS2_reset,
+				input  logic PS2_clk,
 				output logic [3:0] value);
 	
 	logic clk;		//used for the oscillator's 2.08 MHz clock
 	logic clk_slow;	//used for slowed down, 5 Hz clock???
 	
 	logic [10:0]code;
-	logic reset_shift;
-	logic reset_shift_2;
 	
 	shiftreg PS2shift(
-		.clk(test_clk),
-		.reset(reset_n),
-		.serial_data_in(PS2Keyboard),
+		.clk(PS2_clk),
+		.reset(PS2_reset),
+		.serial_data_in(PS2_data),
 		
-		//.reset_out(reset_shift_2),
 		.parallel_data_out(code)
 	);
-	
-	/*shiftreg#(11) PS2shift(
-		.clk(clk_slow),
-		.reset(n_reset),
-		//.load(), 
-		.sin(PS2Keyboard),
-		//.d(code),
-		
-		.q(code)//,
-		//.sout()
-	);*/
 	
 	PS2Decoder decode(
 		.code(code),
 		.clk(clk),
-		//.reset_2(reset_shift_2),
+		.en(clk_slow),
 		
-		.reset(),
+		.reset(PS2_reset),
 		.value(value)
 	);
 	
@@ -51,8 +37,8 @@ module test_Top(input  logic PS2Keyboard,
 			
 		//slows the clock to what ever speed we need
 		clock_counter counter_1(
-			.clk_i(clk),
-			.reset_n(reset_n),
+			.clk_i(PS2_clk),
+			.reset_n(PS2_reset),
 			
 			.clk_o(clk_slow)
 		);
