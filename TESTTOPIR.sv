@@ -54,11 +54,11 @@ module TOPTESTIR(
 		         .code(dataTR),
 				 .button(dataF));	  
 
-
+/*
 OSCH #("2.08") osc_int (			
 			.STDBY(1'b0),			
 			.OSC(clk),				
 			.SEDSTDBY());			
 
-
+*/
 endmodule
