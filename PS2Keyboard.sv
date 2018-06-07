@@ -1,5 +1,5 @@
 module PS2Decoder(input  logic [10:0] code, 
-				  input  logic clk,
+			//	  input  logic clk,
 				  input  logic en,
 			//	  input  logic reset_2,
 				  output logic reset,

@@ -2,9 +2,10 @@ module clock_counter(
 	input logic clk_i,		//often, "tags" are added to variables to denote what they do for the user
 	input logic reset_n,	//here, 'i' is used for input and 'o' for the output, while 'n' specifies
 	//input logic en,						//an active low signal ("not") 
+	output logic count_done,
 	output logic clk_o);
 		
-		logic [13:0] count;	//register stores the counter value so that it can be modified
+		logic [3:0] count;	//register stores the counter value so that it can be modified
 					//on a clock edge. Register size needs to store as large of a
 					//number as the counter reaches. Here, 2^(13+1) = 16,384.
 		
@@ -13,12 +14,14 @@ module clock_counter(
 				count <= count + 1;	//at every positive edge, the counter is increased by 1
 				if(!reset_n) //If reset_n gets pulled to ground (active low), reset count to 0
 					begin
+						count_done = 1;
 						clk_o <= 0;
 						count <= 0;
 					end
 				else
-					if(count >= 11) //Flips the slow clock every 10000 clock cycles
-						begin		
+					if(count >= 10) //Flips the slow clock every 10000 clock cycles
+						begin	
+							count_done = 1;
 							clk_o <= ~clk_o;	//Flip slow clock
 							count <= 0;			//Reset the counter
 						end
