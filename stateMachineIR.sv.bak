@@ -12,10 +12,11 @@ module statemachine(
    IDLE = 2'b00,
    READ = 2'b01,
    END = 2'b10,
-   NA = 2'b11;
- } 
+   NA = 2'b11
 sm_ps ; 
 sm_ns ;
+ } 
+
  
  always_ff @ (posedge clk, negedge reset)
       begin
