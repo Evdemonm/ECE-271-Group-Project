@@ -1,16 +1,19 @@
 module test_Top(input  logic PS2_data,
-				input  logic PS2_reset,
-				input  logic PS2_clk,
+				input  logic reset_n,
+				input  logic test_clk,
 				output logic [3:0] value);
 	
-	logic clk;		//used for the oscillator's 2.08 MHz clock
-	logic clk_slow;	//used for slowed down, 5 Hz clock???
+	logic clk;
+	logic slow_clk;
+	logic PS2_counter;
+	logic state_reset;
+	logic count_done;
 	
 	logic [10:0]code;
 	
 	shiftreg PS2shift(
-		.clk(PS2_clk),
-		.reset(PS2_reset),
+		.clk(test_clk),//slow_clk),
+		.reset(reset_n),
 		.serial_data_in(PS2_data),
 		
 		.parallel_data_out(code)
@@ -18,28 +21,44 @@ module test_Top(input  logic PS2_data,
 	
 	PS2Decoder decode(
 		.code(code),
-		.clk(clk),
-		.en(clk_slow),
+		//.clk(clk),
+		.en(count_done),
 		
-		.reset(PS2_reset),
+		.reset(reset_n),
 		.value(value)
 	);
 	
 	
+	PS2_state state(
+		.PS2_data(PS2_data),
+		.clk(test_clk),//slow_clk),
+		.reset(reset_n),
+		.count_done(count_done),
+		
+		.reset_out(state_reset)
+	);
 	
-	//This is an instance of a special, built in module that accesses our chip's oscillator
-		OSCH #("2.08") osc_int (	//"2.08" specifies the operating frequency, 2.08 MHz.
-									//Other clock frequencies can be found in the MachX02's documentation
+	
+	OSCH #("14.78"/*"2.08"*/) osc_int (
 			.STDBY(1'b0),			
+			
 			.OSC(clk),				
 			.SEDSTDBY()
 		);			
+		
+		PS2_clock clock(
+			.clk_i(test_clk),
+			.reset_n(reset_n),
 			
-		//slows the clock to what ever speed we need
-		clock_counter counter_1(
-			.clk_i(PS2_clk),
-			.reset_n(PS2_reset),
+			.clk_o(slow_clk)
+		);
+		
+		
+		clock_counter shift_counter(
+			.clk_i(test_clk),//slow_clk),
+			.reset_n(state_reset),
 			
-			.clk_o(clk_slow)
+			.count_done(count_done),
+			.clk_o(PS2_counter)
 		);
 endmodule
