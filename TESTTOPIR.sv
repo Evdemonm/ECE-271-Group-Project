@@ -1,11 +1,13 @@
 module TOPTESTIR(
-            input logic IR,
+                        input logic IR,
 			input logic reset,
-			
+			input logic clk,
+                    
+
 			output logic [3:0] dataF
 
 );
-     logic clk;
+     //logic clk;
      logic read;
      logic error;
      logic done;
