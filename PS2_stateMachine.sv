@@ -16,11 +16,11 @@ module PS2_state(input  logic PS2_data,
 	always_comb begin 
 		case(state)
 			S0: if(PS2_data == 0) begin
-					reset_out = 1;
+					reset_out = 0;
 					nextstate <= S1;
 				end else begin
 					nextstate <= S0;
-					reset_out = 0;
+					reset_out = 1;
 				end
 			S1: if(count_done) begin
 					nextstate <= S0;

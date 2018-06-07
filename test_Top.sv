@@ -1,10 +1,10 @@
 module test_Top(input  logic PS2_data,
 				input  logic reset_n,
-				input  logic slow_clk,
+				input  logic test_clk,
 				output logic [3:0] value);
 	
-	logic clk;		//used for the oscillator's 2.08 MHz clock
-	logic clk_slow;	//used for slowed down, 5 Hz clock???
+	logic clk;
+	logic slow_clk;
 	logic PS2_counter;
 	logic state_reset;
 	logic count_done;
@@ -12,7 +12,7 @@ module test_Top(input  logic PS2_data,
 	logic [10:0]code;
 	
 	shiftreg PS2shift(
-		.clk(slow_clk),//test_clk),
+		.clk(test_clk),//slow_clk),
 		.reset(reset_n),
 		.serial_data_in(PS2_data),
 		
@@ -31,7 +31,7 @@ module test_Top(input  logic PS2_data,
 	
 	PS2_state state(
 		.PS2_data(PS2_data),
-		.clk(slow_clk),//PS2_clk),
+		.clk(test_clk),//slow_clk),
 		.reset(reset_n),
 		.count_done(count_done),
 		
@@ -39,7 +39,7 @@ module test_Top(input  logic PS2_data,
 	);
 	
 	
-	OSCH #("2.08") osc_int (
+	OSCH #("14.78"/*"2.08"*/) osc_int (
 			.STDBY(1'b0),			
 			
 			.OSC(clk),				
@@ -47,15 +47,15 @@ module test_Top(input  logic PS2_data,
 		);			
 		
 		PS2_clock clock(
-			.clk_i(clk),
+			.clk_i(test_clk),
 			.reset_n(reset_n),
 			
 			.clk_o(slow_clk)
 		);
-			
+		
 		
 		clock_counter shift_counter(
-			.clk_i(slow_clk),//test_clk),
+			.clk_i(test_clk),//slow_clk),
 			.reset_n(state_reset),
 			
 			.count_done(count_done),

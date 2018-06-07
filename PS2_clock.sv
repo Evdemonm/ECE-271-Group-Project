@@ -15,10 +15,10 @@ module PS2_clock(
 						count <= 0;
 					end
 				else
-					if(count >= 160) 
+					if(count >= 1000) 
 						begin		
-							clk_o <= ~clk_o;	//Flip slow clock
-							count <= 0;			//Reset the counter
+							clk_o <= ~clk_o;
+							count <= 0;
 						end
 			end
 endmodule
