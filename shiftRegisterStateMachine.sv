@@ -1,4 +1,4 @@
-module shiftreg(input  logic clk,
+module shiftregIR(input  logic clk,
 				input  logic reset, 
 				input  logic serial_data_in,
 				output logic [31:0] parallel_data_out);
