@@ -1,6 +1,6 @@
 vsim work.PS2_testTop
 
-add wave *
+add *
 
 force PS2_data 2#1 @0
 

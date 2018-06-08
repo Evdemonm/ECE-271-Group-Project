@@ -11,7 +11,7 @@
 // Description:    This is used to simulate that the button board is properly
 //				   decoded.
 //////////////////////////////////////////////////////////////////////////////////
-module PS2_testTop(input [7:0] buttonBoard,
+module buttonBoard_testTop(input [7:0] buttonBoard,
 				   input  logic reset_n,
 				   input  logic test_clk,
 				

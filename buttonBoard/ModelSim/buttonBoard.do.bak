@@ -1,4 +1,4 @@
-vsim work.buttonBoard_testTop
+vsim work.PS2_testTop
 
 add wave *
 
