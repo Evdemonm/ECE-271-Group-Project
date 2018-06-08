@@ -3,7 +3,7 @@ module slowclock( input logic clk,
 					 
 					 output logic flip);
 	
-	    logic [19:0] Timer;
+	    logic [32:0] Timer;
 			   
 
         always_ff @ (posedge clk, negedge reset)
@@ -15,7 +15,7 @@ module slowclock( input logic clk,
 						Timer <= 0;
 					end
 				else
-					if(Timer >= 1040) 
+					if(Timer >= 1040000) 
 						begin
 							flip <= ~flip;	
 							Timer <= 0;			

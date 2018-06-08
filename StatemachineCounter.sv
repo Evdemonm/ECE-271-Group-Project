@@ -5,22 +5,22 @@ module SMCounter ( input logic clk,
 				output logic data,
 				output logic error);
                 
-				logic [31:0] Count;
+				logic [64:0] Count;
 
-      always_ff @ (posedge clk, negedge IR) //slow clock sometime in the future
+      always_ff @ (posedge clk, negedge IR) 
 		 begin
           if(~IR) 
 	     	   Count <= 0;
-		  else if( Count == 2147483647)
-			  Count <= 0;
+		  else if( Count == 10000)
+			  Count <= Count;
 		  else
 			  Count <= Count + 1;
 			 
 		end
 	    
-		assign data = (Count> 1000); // decide pulse, send to shift
-		assign read = (Count> 1800); // send to sm
-		assign error = (Count> 177127); //LONG RESET
+		assign data = (Count> 1500); // decide pulse, send to shift
+		assign read = (Count> 8800); // send to sm
+		assign error = (Count == 10000); //LONG RESET
     	
 			
 	endmodule

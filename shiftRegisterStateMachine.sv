@@ -1,9 +1,10 @@
-module shiftregIR(input  logic clk,
+module shiftregIR(
+                input  logic IR,
 				input  logic reset, 
 				input  logic serial_data_in,
 				output logic [31:0] parallel_data_out);
 
-always @ ( posedge clk or negedge reset)
+always @ ( negedge IR , negedge reset)
 	begin
 	  if (!reset) 
 		begin
@@ -12,4 +13,9 @@ always @ ( posedge clk or negedge reset)
 	  else  
 		 parallel_data_out[31:0] <= {parallel_data_out[30:0],serial_data_in};
 	end
+	
+	
+	
+	
+	
 endmodule

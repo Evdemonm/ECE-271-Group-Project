@@ -13,9 +13,9 @@ module TOPTESTIR(
      logic done;
      logic FINISH;
      logic dataSM;	 
-     logic [31:0] dataTR;
+     logic [32:0] dataTR;
 	 logic IDR;
-	 logic [31:0] dataout;
+	 logic [32:0] dataout;
 
 
      statemachine SM(
