@@ -15,12 +15,15 @@ module PS2_testTop(input  logic PS2_data,
 				input  logic reset_n,
 				input  logic test_clk,
 				
-				output logic [3:0] value);
+				//output logic [3:0] value
+				output logic [11:0] snes_out);
 	
 	logic clk;
 	logic slow_clk;
+	logic clock_snes;
 	logic state_reset;
 	logic count_done;
+	logic [3:0]value;
 	
 	logic [10:0]code;
 	
@@ -38,7 +41,6 @@ module PS2_testTop(input  logic PS2_data,
 		.code(code),
 		.en(count_done),
 		
-		.reset(reset_n),
 		.value(value)
 	);
 	
@@ -52,17 +54,23 @@ module PS2_testTop(input  logic PS2_data,
 		.reset_out(state_reset)
 	);
 	
-	//FPGA oscillator set at 14.78MHZ
-	OSCH #("14.78") osc_int (
+	recoder snes(
+		.button_in(value),
+		.clk(test_clk),//clock_snes
+		.snes(snes_out)
+	);
+	
+	//FPGA oscillator set at 2.08MHZ
+	OSCH #("2.08") osc_int (
 			.STDBY(1'b0),			
 			
 			.OSC(clk),				
 			.SEDSTDBY()
 	);			
 	
-	//slows the clock to 14.78KHz
+	//slows the clock to 13KHz
 	PS2_clock clock(
-		.clk_i(test_clk),
+		.clk_i(test_clk),//clk;
 		.reset_n(reset_n),
 			
 		.clk_o(slow_clk)
@@ -75,5 +83,13 @@ module PS2_testTop(input  logic PS2_data,
 			
 		.count_done(count_done)
 	);
+	snes_clock sclock(
+		.clk_i(test_clk),//clk
+		.reset_n(reset_n),
+		
+		.clk_o(clock_snes)		
+	);
+
+
 
 endmodule

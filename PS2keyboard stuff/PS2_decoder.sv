@@ -14,7 +14,6 @@
 module PS2_decoder(input  logic [10:0] code, 
 				  input  logic en,
 				  
-				  output logic reset,
 				  output logic [3:0] value);
 	always_comb
 	begin

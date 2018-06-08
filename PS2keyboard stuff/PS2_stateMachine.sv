@@ -18,11 +18,11 @@ module PS2_stateMachine(input  logic PS2_data,
 				 
 				 output logic reset_out);
 				 
-	typedef enum logic [1:0] {S0,S1} statetype;
+	typedef enum logic [1:0] {IDLE,READ} statetype;
 	statetype [1:0] state, nextstate;
 		
 	always_ff @(negedge clk, posedge reset) begin
-			if(reset) state <= S0; 
+			if(reset) state <= IDLE; 
 			else  state <= nextstate;
 			
 	end
@@ -30,22 +30,22 @@ module PS2_stateMachine(input  logic PS2_data,
 	always_comb begin 
 		case(state)
 			//looking for a 0
-			S0: if(PS2_data == 0) begin
+			IDLE: if(PS2_data == 0) begin
 					reset_out = 0;
-					nextstate <= S1;
+					nextstate <= READ;
 				end else begin
-					nextstate <= S0;
+					nextstate <= IDLE;
 					reset_out = 1;
 				end
 			//reading in values
-			S1: if(count_done) begin
-					nextstate <= S0;
+			READ: if(count_done) begin
+					nextstate <= IDLE;
 					reset_out = 0;
 				end else begin
-					nextstate <= S1;
+					nextstate <= READ;
 					reset_out = 1;
 				end
-			default: nextstate <= S0;
+			default: nextstate <= IDLE;
 		endcase
 	end
 	
