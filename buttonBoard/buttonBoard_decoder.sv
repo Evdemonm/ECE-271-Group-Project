@@ -22,6 +22,7 @@ module buttonBoard_decoder (input  logic [7:0] buttons,
 			8'b0010_0000: value = 5;
 			8'b0100_0000: value = 6;
 			8'b1000_0000: value = 7;
+			8'b1000_0001: value = 8;
 		default: value = 9;
 	endcase
 endmodule

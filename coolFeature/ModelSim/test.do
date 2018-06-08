@@ -2,6 +2,10 @@ vsim work.Top_Level
 
 add wave *
 
+force PS2_data 2#1 @0
+
+force superslow_clk -r 1600 0 @ 0, 1 @ 800
+
 force test_clk 2#1 @0
 force test_clk 2#0 @25
 force test_clk 2#1 @50
@@ -203,3 +207,59 @@ force test_clk 2#0 @4925
 force test_clk 2#1 @4950
 force test_clk 2#0 @4975
 
+force buttonBoard 2#00000001 @200
+force buttonBoard 2#00000000 @225
+
+force PS2_data 2#0 @200
+force PS2_data 2#1 @250
+force PS2_data 2#1 @300
+force PS2_data 2#0 @350
+force PS2_data 2#0 @400
+force PS2_data 2#0 @450
+force PS2_data 2#1 @500
+force PS2_data 2#0 @550
+force PS2_data 2#0 @600
+force PS2_data 2#0 @650
+force PS2_data 2#1 @700
+
+force test_value2 2#0010 @200
+force test_value2 2#1001 @225
+
+force buttonBoard 2#00000001 @1200
+force buttonBoard 2#00000000 @1225
+
+force PS2_data 2#0 @1200
+force PS2_data 2#1 @1250
+force PS2_data 2#1 @1300
+force PS2_data 2#0 @1350
+force PS2_data 2#0 @1400
+force PS2_data 2#0 @1450
+force PS2_data 2#1 @1500
+force PS2_data 2#0 @1550
+force PS2_data 2#0 @1600
+force PS2_data 2#0 @1650
+force PS2_data 2#1 @1700
+
+force test_value2 2#0010 @1200
+force test_value2 2#1001 @1225
+
+force buttonBoard 2#00000001 @3200
+force buttonBoard 2#00000000 @3225
+
+force PS2_data 2#0 @3200
+force PS2_data 2#1 @3250
+force PS2_data 2#1 @3300
+force PS2_data 2#0 @3350
+force PS2_data 2#0 @3400
+force PS2_data 2#0 @3450
+force PS2_data 2#1 @3500
+force PS2_data 2#0 @3550
+force PS2_data 2#0 @3600
+force PS2_data 2#0 @3650
+force PS2_data 2#1 @3700
+
+force test_value2 2#0010 @3200
+force test_value2 2#1001 @3225
+
+
+run 5000

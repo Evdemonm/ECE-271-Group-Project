@@ -16,12 +16,12 @@ module assign_button(input  logic[3:0] button_board,
 			         output logic[3:0] button_press);
 		
 	always_comb
-	begin
-		if(!(PS2_keyboard-IR_controller))
-			button_press = button_board;
-		else if(!(button_board-IR_controller))
-			button_press = PS2_keyboard;
-		else if(!(button_board-PS2_keyboard))
-			button_press = IR_controller;
-	end
+		begin
+			if(!(PS2_keyboard-IR_controller))
+				button_press = button_board;
+			else if(!(button_board-IR_controller))
+				button_press = PS2_keyboard;
+			else if(!(button_board-PS2_keyboard))
+				button_press = IR_controller;
+		end
 endmodule

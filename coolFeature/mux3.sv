@@ -10,19 +10,19 @@
 // Tool versions:  Lattice Diamond 3.7
 // Description:    depending on state specific device buttons will be output
 //////////////////////////////////////////////////////////////////////////////////
-module mux3(input logic [4:0]nes_in,
-			input logic [3:0]state,
-		   output logic [4:0]nes_out);
+module mux3(input logic [3:0]nes_in,
+			input logic [2:0]state,
+		   output logic [3:0]nes_out);
 	
 	always_comb
 	begin
-		if(state == 2 && (nes_in < 4)) 
+		if(state == 2 && (nes_in < 3)) 
 				nes_out = nes_in; 
-		else if(state == 0 && (nes_in > 3 && nes_in < 8))
+		else if(state == 0 && (nes_in > 2 && nes_in < 6))
 				nes_out = nes_in;
-		else if(state == 1 && (nes_in > 7 && nes_in < 12))
+		else if(state == 1 && (nes_in > 5 && nes_in < 9))
 				nes_out = nes_in;
 		else
-				nes_out = 12;
+				nes_out = 9;
 	end
 endmodule

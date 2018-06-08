@@ -12,9 +12,9 @@
 //////////////////////////////////////////////////////////////////////////////////
 module recoder(input  logic[3:0] button_in,
 			   input  logic clk,
-			   output logic[12:0] snes);
+			   output logic[11:0] snes);
 			   
-	always @ (posedge clk)
+	always_comb// @ (posedge clk)
 	begin
 		case(button_in)
 			0: snes = 12'b1111_1111_1111_1111_1110;
@@ -26,7 +26,7 @@ module recoder(input  logic[3:0] button_in,
 			6: snes = 12'b1111_1111_1111_1011_1111;
 			7: snes = 12'b1111_1111_1111_0111_1111;
 			8: snes = 12'b1111_1111_1110_1111_1111;
-			default: snes = 12'b0111_1111_1111_1111_1111;
+			default: snes = 12'b1111_1111_1111_1111_1111;
 		endcase
 	end
 endmodule

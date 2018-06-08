@@ -15,7 +15,9 @@ module Top_Level(input  logic PS2_data,
 				input logic IR,
 				input  logic reset_n,
 				input  logic test_clk,
-				input [7:0] buttonBoard,
+				input logic[7:0] buttonBoard,
+				input logic superslow_clk,
+				input logic [3:0]test_value2,
 				
 				//output logic [3:0] value
 				output logic [11:0] snes_out);
@@ -28,7 +30,7 @@ module Top_Level(input  logic PS2_data,
 	logic [3:0]value1;
 	logic [3:0]value2;
 	logic [3:0]value3;
-	logic [3:0]snes_out;
+	//logic [3:0]snes_out;
 	
 	logic [10:0]code;
 	
@@ -46,7 +48,7 @@ module Top_Level(input  logic PS2_data,
 		.code(code),
 		.en(count_done),
 		
-		.value(value)
+		.value(value1)
 	);
 	
 	//switches between looking for 0 and reading state
@@ -66,13 +68,13 @@ module Top_Level(input  logic PS2_data,
 	);*/
 	
 	//FPGA oscillator set at 2.08MHZ
-	OSCH #("2.08") osc_int (
+/*	OSCH #("2.08") osc_int (
 			.STDBY(1'b0),			
 			
 			.OSC(clk),				
 			.SEDSTDBY()
 	);			
-	
+	*/
 	//slows the clock to 13KHz
 	PS2_clock clock(
 		.clk_i(test_clk),//clk;
@@ -167,10 +169,11 @@ module Top_Level(input  logic PS2_data,
 
 
 //cool feature
-	logic PS2;
-	logic VCR;
-	logic Button;
-	logic coolState;
+	logic [3:0]PS2;
+	logic [3:0]VCR;
+	logic [3:0]Button;
+	logic [2:0]coolState;
+	logic [3:0]button_value;
 
 	mux1 m1(
 		.nes_in(value1),
@@ -180,7 +183,7 @@ module Top_Level(input  logic PS2_data,
 	);
 
 	mux2 m2(
-		.nes_in(value2),
+		.nes_in(test_value2),
 		.state(coolState),
 		
 		.nes_out(VCR)
@@ -193,16 +196,23 @@ module Top_Level(input  logic PS2_data,
 		.nes_out(Button)
 	);
 	
-	assign_button(
+	assign_button assig(
 		.button_board(Button),
 		.PS2_keyboard(PS2),
 		.IR_controller(VCR),
 		
-		.button_press(snes_out)
+		.button_press(button_value)
 	);
 	
-	buttonState(
-		.slowCLK(test_clk),
+	recoder recode(
+		.button_in(button_value),
+		.clk(test_clk),
+		.snes(snes_out)
+		
+	);
+	
+	buttonState s(
+		.slowCLK(superslow_clk),
         
 		.State(coolState)
 	);
